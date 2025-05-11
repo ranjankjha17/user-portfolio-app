@@ -7,6 +7,9 @@ interface User {
   id: string;
   name: string;
   email: string;
+  jobTitle: string,
+  bio: string,
+  profileImage: string,
 }
 
 interface AuthContextType {
@@ -18,7 +21,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType>({
   user: null,
   loading: true,
-  logout: () => {},
+  logout: () => { },
 });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {

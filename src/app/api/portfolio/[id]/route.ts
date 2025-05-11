@@ -50,12 +50,17 @@ export async function PUT(request: Request, { params }: { params: { id: string }
         { status: 401 }
       );
     }
-
-    const { title, description, imageUrl, tags } = await request.json();
-
+    const { projectName, description, demoUrl, repositoryUrl, tags } = await request.json();
     const portfolioItem = await Portfolio.findOneAndUpdate(
       { _id: params.id, user: user._id },
-      { title, description, imageUrl, tags },
+      {
+      projectName,
+      description,
+      demoUrl,
+      repositoryUrl,
+      tags,
+      user: user._id
+    },
       { new: true }
     );
 

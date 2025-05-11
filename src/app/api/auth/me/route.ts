@@ -18,7 +18,10 @@ export async function GET() {
         user: { 
           id: user._id, 
           name: user.name, 
-          email: user.email 
+          email: user.email,
+          jobTitle:user.jobTitle,
+          bio:user.bio, 
+          profileImage:user.profileImage,
         } 
       },
       { status: 200 }
