@@ -1,135 +1,3 @@
-// 'use client';
-
-// import { useState, useEffect } from 'react';
-// import Link from 'next/link';
-// import { useAuth } from '@/context/AuthProvider';
-
-// interface PortfolioItem {
-//   _id: string;
-//   title: string;
-//   description: string;
-//   imageUrl: string;
-//   tags: string[];
-// }
-
-// export default function PortfolioList() {
-//   const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([]);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState('');
-//   const { user } = useAuth();
-
-//   useEffect(() => {
-//     const fetchPortfolioItems = async () => {
-//       try {
-//         const response = await fetch('/api/portfolio');
-//         const data = await response.json();
-
-//         if (response.ok) {
-//           setPortfolioItems(data.data);
-//         } else {
-//           setError(data.message || 'Failed to fetch portfolio items');
-//         }
-//       } catch (err: any) {
-//         setError(err.message);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     if (user) {
-//       fetchPortfolioItems();
-//     }
-//   }, [user]);
-
-//   const handleDelete = async (id: string) => {
-//     try {
-//       const response = await fetch(`/api/portfolio/${id}`, {
-//         method: 'DELETE',
-//       });
-
-//       if (response.ok) {
-//         setPortfolioItems(portfolioItems.filter(item => item._id !== id));
-//       } else {
-//         const data = await response.json();
-//         setError(data.message || 'Failed to delete portfolio item');
-//       }
-//     } catch (err: any) {
-//       setError(err.message);
-//     }
-//   };
-
-//   if (loading) {
-//     return <div className="text-center py-4">Loading...</div>;
-//   }
-
-//   if (error) {
-//     return <div className="text-center py-4 text-red-500">{error}</div>;
-//   }
-
-//   return (
-//     <div className="space-y-6">
-//       <div className="flex justify-between items-center">
-//         <h2 className="text-2xl font-bold">My Portfolio</h2>
-//         <Link
-//           href="/portfolio/new"
-//           className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
-//         >
-//           Add New Item
-//         </Link>
-//       </div>
-
-//       {portfolioItems.length === 0 ? (
-//         <div className="text-center py-8">
-//           <p className="text-gray-500">No portfolio items yet. Add your first item!</p>
-//         </div>
-//       ) : (
-//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-//           {portfolioItems.map((item) => (
-//             <div key={item._id} className="bg-white rounded-lg shadow-md overflow-hidden">
-//               <img
-//                 src={item.imageUrl}
-//                 alt={item.title}
-//                 className="w-full h-48 object-cover"
-//               />
-//               <div className="p-4">
-//                 <h3 className="font-bold text-lg mb-2">{item.title}</h3>
-//                 <p className="text-gray-600 mb-4">{item.description}</p>
-//                 <div className="flex flex-wrap gap-2 mb-4">
-//                   {item.tags.map((tag) => (
-//                     <span
-//                       key={tag}
-//                       className="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-full"
-//                     >
-//                       {tag}
-//                     </span>
-//                   ))}
-//                 </div>
-//                 <div className="flex justify-between">
-//                   <Link
-//                     href={`/portfolio/${item._id}/edit`}
-//                     className="text-indigo-600 hover:text-indigo-800"
-//                   >
-//                     Edit
-//                   </Link>
-//                   <button
-//                     onClick={() => handleDelete(item._id)}
-//                     className="text-red-600 hover:text-red-800"
-//                   >
-//                     Delete
-//                   </button>
-//                 </div>
-//               </div>
-//             </div>
-//           ))}
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
-
-
-
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -176,7 +44,7 @@ export default function PortfolioList() {
 
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this item?')) return;
-    
+
     try {
       const response = await fetch(`/api/portfolio/${id}`, {
         method: 'DELETE',
@@ -207,7 +75,7 @@ export default function PortfolioList() {
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
+      {/* <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">My Portfolio</h2>
         <Link
           href="/portfolio/new"
@@ -215,6 +83,34 @@ export default function PortfolioList() {
         >
           Add New Project
         </Link>
+      </div> */}
+      <div className="flex justify-between items-center">
+        <h2 className="text-2xl font-bold">My Portfolio</h2>
+        <div className="flex gap-3">
+          <Link
+            href={`/portfolio/publicportfolio/${user.email.split('@')[0]}`} // Public link
+            target="_blank"
+            className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors flex items-center gap-1"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-5 h-5"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
+            </svg>
+            Public View
+          </Link>
+          <Link
+            href="/portfolio/new"
+            className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
+          >
+            Add New Project
+          </Link>
+        </div>
       </div>
 
       {portfolioItems.length === 0 ? (
@@ -243,9 +139,9 @@ export default function PortfolioList() {
                     </button>
                   </div>
                 </div>
-                
+
                 <p className="text-gray-600 mb-4">{item.description}</p>
-                
+
                 <div className="flex flex-wrap gap-2 mb-4">
                   {item.tags.map((tag) => (
                     <span
@@ -256,7 +152,7 @@ export default function PortfolioList() {
                     </span>
                   ))}
                 </div>
-                
+
                 <div className="flex flex-wrap gap-4">
                   {item.demoUrl && (
                     <a
@@ -271,7 +167,7 @@ export default function PortfolioList() {
                       Live Demo
                     </a>
                   )}
-                  
+
                   {item.repositoryUrl && (
                     <a
                       href={item.repositoryUrl}

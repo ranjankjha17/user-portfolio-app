@@ -36,47 +36,6 @@ export async function GET() {
   }
 }
 
-// export async function PUT(request: Request) {
-//   try {
-//     await dbConnect();
-//     const user = await getCurrentUser();
-
-//     if (!user) {
-//       return NextResponse.json(
-//         { success: false, message: 'Not authenticated' },
-//         { status: 401 }
-//       );
-//     }
-
-//     const { name, jobTitle, bio,profileImage } = await request.json();
-//     console.log( name, jobTitle, bio,profileImage)
-
-//     const updatedUser = await User.findByIdAndUpdate(
-//       user._id,
-//       { name, jobTitle, bio,profileImage },
-//       { new: true }
-//     );
-
-//     return NextResponse.json(
-//       { 
-//         success: true, 
-//         user: {
-//           name: updatedUser?.name,
-//           email: updatedUser?.email,
-//           profileImage: updatedUser?.profileImage,
-//           jobTitle: updatedUser?.jobTitle,
-//           bio: updatedUser?.bio
-//         } 
-//       },
-//       { status: 200 }
-//     );
-//   } catch (error: any) {
-//     return NextResponse.json(
-//       { success: false, message: error.message },
-//       { status: 500 }
-//     );
-//   }
-// }
 
 
 export async function PUT(request: Request) {
@@ -91,17 +50,13 @@ export async function PUT(request: Request) {
       );
     }
 
-    // Extract all fields from request body
-    const { name, jobTitle, bio, profileImage } = await request.json();
-    console.log('Updating user with:', { name, jobTitle, bio, profileImage });
+    const { name, email,jobTitle, bio, profileImage } = await request.json();
+    console.log('Updating user with:', { name,email, jobTitle, bio, profileImage });
 
-    // Create update object
     const updateData = {
-      name,
-      // Only update these fields if they're not undefined
+      name, email,
       ...(jobTitle !== undefined && { jobTitle }),
       ...(bio !== undefined && { bio }),
-      // Convert undefined to null for profileImage
       profileImage: profileImage !== undefined ? profileImage : null
     };
 

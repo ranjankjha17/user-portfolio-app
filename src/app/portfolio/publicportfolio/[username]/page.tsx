@@ -11,7 +11,7 @@ export default async function PublicPortfolioPage({
 }) {
   await dbConnect();
 
-  // Find user by username (using email prefix for simplicity)
+  
   const emailPrefix = params.username.replace('-', '@');
   const user = await User.findOne({
     email: { $regex: `^${emailPrefix}` },
@@ -21,11 +21,10 @@ export default async function PublicPortfolioPage({
     return notFound();
   }
 
-  // Get user's portfolio items
   const portfolioItems = await Portfolio.find({ user: user._id }).sort({
     createdAt: -1,
   });
-
+// console.log("username",params.username)
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

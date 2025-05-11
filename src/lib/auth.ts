@@ -20,7 +20,7 @@ export async function verifyToken(token: string): Promise<string | null> {
 }
 
 export async function getCurrentUser(): Promise<IUser | null> {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const token = cookieStore.get(COOKIE_NAME)?.value;
 
   if (!token) return null;
