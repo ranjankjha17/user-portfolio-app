@@ -1,4 +1,3 @@
-// app/api/auth/reset-password/route.ts
 import { NextResponse } from 'next/server';
 import User from '@/models/User';
 import Token from '@/models/Token';
@@ -9,7 +8,6 @@ export async function POST(request: Request) {
   await dbConnect();
   const { token, newPassword } = await request.json();
 
-  // Find token
   const tokenDoc = await Token.findOne({ 
     token,
     expiresAt: { $gt: new Date() } 
@@ -22,13 +20,11 @@ export async function POST(request: Request) {
     );
   }
 
-  // Update password
   const hashedPassword = await bcrypt.hash(newPassword, 10);
   await User.findByIdAndUpdate(tokenDoc.userId, { 
     password: hashedPassword 
   });
 
-  // Delete token
   await Token.deleteOne({ _id: tokenDoc._id });
 
   return NextResponse.json(

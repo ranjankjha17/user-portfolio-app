@@ -1,4 +1,3 @@
-// lib/mongodb.ts
 import { MongoClient } from "mongodb";
 
 const uri = process.env.MONGODB_URI as string;
@@ -13,7 +12,6 @@ let client: MongoClient;
 let clientPromise: Promise<MongoClient>;
 
 declare global {
-  // Allow global cache for dev hot reload
   var _mongoClientPromise: Promise<MongoClient> | undefined;
 }
 

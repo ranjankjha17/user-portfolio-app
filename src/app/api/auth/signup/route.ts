@@ -8,7 +8,6 @@ export async function POST(request: Request) {
     await dbConnect();
     const { name, email, password } = await request.json();
 
-    // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return NextResponse.json(
@@ -17,14 +16,11 @@ export async function POST(request: Request) {
       );
     }
 
-    // Create new user
     const user = new User({ name, email, password });
     await user.save();
 
-    // Generate token
     const token = await generateToken(user._id.toString());
 
-    // Set cookie
     const response = NextResponse.json(
       { success: true, user: { id: user._id, name: user.name, email: user.email } },
       { status: 201 }

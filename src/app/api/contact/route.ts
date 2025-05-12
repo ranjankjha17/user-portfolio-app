@@ -5,7 +5,6 @@ export async function POST(request: Request) {
   try {
     const { to, from, name, message } = await request.json();
 
-    // Create a transporter (using Mailtrap for testing)
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
       port: parseInt(process.env.EMAIL_PORT || '2525'),
@@ -15,11 +14,10 @@ export async function POST(request: Request) {
       },
     });
 
-    // Send mail
     await transporter.sendMail({
       from: `"${name}" <${from}>`,
       to,
-      subject: 'New message from your portfolio',
+      subject: 'New message from my portfolio',
       text: message,
       html: `<p>${message}</p>`,
     });

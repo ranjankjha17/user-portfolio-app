@@ -1,4 +1,3 @@
-// app/api/auth/forgot-password/route.ts
 import { NextResponse } from 'next/server';
 import User from '@/models/User';
 import Token from '@/models/Token';
@@ -18,16 +17,13 @@ export async function POST(request: Request) {
     );
   }
 
-  // Generate token
   const token = crypto.randomBytes(32).toString('hex');
   
-  // Save token to DB
   await Token.create({
     token,
     userId: user._id
   });
 
-  // Send email
   await sendPasswordResetEmail(user.email, token);
 
   return NextResponse.json(

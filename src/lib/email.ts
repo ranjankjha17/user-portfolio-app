@@ -1,4 +1,3 @@
-// lib/email.ts
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
@@ -14,7 +13,7 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
   const resetUrl = `${process.env.NEXTAUTH_URL}/reset-password?token=${token}`;
   
   await transporter.sendMail({
-    from: '"User Portfolio App" <no-reply@userportfolio.com>',
+    from: '"User Portfolio App" <no-reply@demomailtrap.co>',
     to: email,
     subject: 'Password Reset Request from user portfolio app',
     html: `

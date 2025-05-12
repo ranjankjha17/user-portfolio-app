@@ -75,20 +75,11 @@ export default function PortfolioList() {
 
   return (
     <div className="space-y-6">
-      {/* <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">My Portfolio</h2>
-        <Link
-          href="/portfolio/new"
-          className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
-        >
-          Add New Project
-        </Link>
-      </div> */}
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-bold">My Portfolio</h2>
         <div className="flex gap-3">
           <Link
-            href={`/portfolio/publicportfolio/${user.email.split('@')[0]}`} // Public link
+            href={`/portfolio/publicportfolio/${user.email.split('@')[0]}`} 
             target="_blank"
             className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors flex items-center gap-1"
           >
