@@ -90,6 +90,14 @@ export default function LoginForm() {
           </Link>
         </p>
       </div>
+      <div className="mt-4 text-center">
+        <p className="text-sm text-gray-600">
+          <Link href="/forgot-password" className="font-sm text-indigo-600 hover:text-indigo-500">
+            Forgot password?
+          </Link>
+        </p>
+      </div>
+
     </div>
   );
 }

@@ -9,10 +9,12 @@ export default async function PublicPortfolioPage({
 }: {
   params: { username: string };
 }) {
+  const { username } = params;
+
   await dbConnect();
 
-  
-  const emailPrefix = params.username.replace('-', '@');
+
+  const emailPrefix = username.replace('-', '@');
   const user = await User.findOne({
     email: { $regex: `^${emailPrefix}` },
   }).select('-password');
@@ -24,7 +26,7 @@ export default async function PublicPortfolioPage({
   const portfolioItems = await Portfolio.find({ user: user._id }).sort({
     createdAt: -1,
   });
-// console.log("username",params.username)
+  // console.log("username",params.username)
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -56,7 +58,7 @@ export default async function PublicPortfolioPage({
                   {item.projectName}
                 </h2>
                 <p className="text-gray-600 mb-4">{item.description}</p>
-                
+
                 <div className="flex flex-wrap gap-2 mb-4">
                   {item.tags.map((tag: string) => (
                     <span
@@ -67,7 +69,7 @@ export default async function PublicPortfolioPage({
                     </span>
                   ))}
                 </div>
-                
+
                 <div className="flex flex-wrap gap-4">
                   {item.demoUrl && (
                     <a
@@ -82,7 +84,7 @@ export default async function PublicPortfolioPage({
                       Live Demo
                     </a>
                   )}
-                  
+
                   {item.repositoryUrl && (
                     <a
                       href={item.repositoryUrl}
