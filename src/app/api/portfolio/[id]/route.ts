@@ -126,11 +126,10 @@ import Portfolio from '@/models/Portfolio';
 import dbConnect from '@/lib/dbConnect';
 import { getCurrentUser } from '@/lib/auth';
 
-interface RouteParams {
-  params: { id: string };
-}
-
-export async function GET(request: Request, { params }: RouteParams) {
+export async function GET(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
   try {
     await dbConnect();
     const user = await getCurrentUser();
@@ -167,7 +166,10 @@ export async function GET(request: Request, { params }: RouteParams) {
   }
 }
 
-export async function PUT(request: Request, { params }: RouteParams) {
+export async function PUT(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
   try {
     await dbConnect();
     const user = await getCurrentUser();
@@ -179,17 +181,10 @@ export async function PUT(request: Request, { params }: RouteParams) {
       );
     }
 
-    const { projectName, description, demoUrl, repositoryUrl, tags } = await request.json();
+    const body = await request.json();
     const portfolioItem = await Portfolio.findOneAndUpdate(
       { _id: params.id, user: user._id },
-      {
-        projectName,
-        description,
-        demoUrl,
-        repositoryUrl,
-        tags,
-        user: user._id
-      },
+      { ...body, user: user._id },
       { new: true }
     );
 
@@ -213,7 +208,10 @@ export async function PUT(request: Request, { params }: RouteParams) {
   }
 }
 
-export async function DELETE(request: Request, { params }: RouteParams) {
+export async function DELETE(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
   try {
     await dbConnect();
     const user = await getCurrentUser();
