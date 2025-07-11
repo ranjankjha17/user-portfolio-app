@@ -46,7 +46,7 @@ export default function ContactForm({ email }: ContactFormProps) {
         email: '',
         message: '',
       });
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError(err.message);
     } finally {
       setLoading(false);

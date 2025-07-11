@@ -76,7 +76,7 @@ export default function PortfolioForm({ initialData }: PortfolioFormProps) {
       }
 
       router.push('/portfolio');
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError(err.message);
     } finally {
       setLoading(false);
