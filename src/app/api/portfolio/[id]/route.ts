@@ -121,27 +121,16 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import Portfolio from '@/models/Portfolio';
 import dbConnect from '@/lib/dbConnect';
 import { getCurrentUser } from '@/lib/auth';
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+interface RouteParams {
+  params: { id: string };
+}
+
+export async function GET(request: Request, { params }: RouteParams) {
   try {
     await dbConnect();
     const user = await getCurrentUser();
@@ -170,18 +159,15 @@ export async function GET(
       { status: 200 }
     );
   } catch (error: unknown) {
-    const err = error as Error;
+    const message = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json(
-      { success: false, message: err.message || 'Internal server error' },
+      { success: false, message },
       { status: 500 }
     );
   }
 }
 
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function PUT(request: Request, { params }: RouteParams) {
   try {
     await dbConnect();
     const user = await getCurrentUser();
@@ -193,8 +179,7 @@ export async function PUT(
       );
     }
 
-    const { projectName, description, demoUrl, repositoryUrl, tags } = await req.json();
-
+    const { projectName, description, demoUrl, repositoryUrl, tags } = await request.json();
     const portfolioItem = await Portfolio.findOneAndUpdate(
       { _id: params.id, user: user._id },
       {
@@ -220,18 +205,15 @@ export async function PUT(
       { status: 200 }
     );
   } catch (error: unknown) {
-    const err = error as Error;
+    const message = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json(
-      { success: false, message: err.message || 'Internal server error' },
+      { success: false, message },
       { status: 500 }
     );
   }
 }
 
-export async function DELETE(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(request: Request, { params }: RouteParams) {
   try {
     await dbConnect();
     const user = await getCurrentUser();
@@ -260,9 +242,9 @@ export async function DELETE(
       { status: 200 }
     );
   } catch (error: unknown) {
-    const err = error as Error;
+    const message = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json(
-      { success: false, message: err.message || 'Internal server error' },
+      { success: false, message },
       { status: 500 }
     );
   }
