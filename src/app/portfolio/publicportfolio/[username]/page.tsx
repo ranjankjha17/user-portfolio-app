@@ -3,6 +3,7 @@ import User from '@/models/User';
 import Portfolio from '@/models/Portfolio';
 import dbConnect from '@/lib/dbConnect';
 import ContactForm from '@/components/ContactForm';
+import Image from 'next/image';
 
 export default async function PublicPortfolioPage({
   params,
@@ -32,10 +33,18 @@ export default async function PublicPortfolioPage({
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
           {user.profileImage && (
-            <img
+            // <img
+            //   src={user.profileImage}
+            //   alt={user.name}
+            //   className="mx-auto h-32 w-32 rounded-full object-cover mb-4"
+            // />
+
+            <Image
               src={user.profileImage}
               alt={user.name}
               className="mx-auto h-32 w-32 rounded-full object-cover mb-4"
+              height={100}
+              width={100}
             />
           )}
           <h1 className="text-3xl font-bold text-gray-900">{user.name}</h1>

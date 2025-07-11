@@ -3,13 +3,14 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthProvider';
 import ProtectedRoute from '@/components/ProtectedRoute';
+import Image from 'next/image';
 
 export default function ProfileSettingsPage() {
   const { user } = useAuth();
   // console.log("user",user)
   const [formData, setFormData] = useState({
     name: '',
-    email:'',
+    email: '',
     jobTitle: '',
     bio: '',
     profileImage: null as string | null,
@@ -22,7 +23,7 @@ export default function ProfileSettingsPage() {
     if (user) {
       setFormData({
         name: user.name || '',
-        email:user.email || '',
+        email: user.email || '',
         jobTitle: user.jobTitle || '',
         bio: user.bio || '',
         profileImage: user.profileImage || null,
@@ -121,11 +122,11 @@ export default function ProfileSettingsPage() {
     <ProtectedRoute>
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <h1 className="text-2xl font-bold mb-6">Profile Settings</h1>
-        
+
         {error && (
           <div className="mb-4 p-2 bg-red-100 text-red-700 rounded">{error}</div>
         )}
-        
+
         {success && (
           <div className="mb-4 p-2 bg-green-100 text-green-700 rounded">
             Profile updated successfully!
@@ -135,10 +136,19 @@ export default function ProfileSettingsPage() {
         <div className="bg-white p-6 rounded-lg shadow-sm">
           <div className="flex flex-col items-center mb-6">
             <div className="relative">
-              <img
+              {/* <img
                 src={formData.profileImage || '/default-avatar.png'}
                 alt="Profile"
                 className="w-24 h-24 rounded-full object-cover"
+              /> */}
+
+              <Image
+                src={formData.profileImage || '/default-avatar.png'}
+                alt="Profile"
+                className="w-24 h-24 rounded-full object-cover"
+                width={100}
+                height={100}
+
               />
               <label className="absolute bottom-0 right-0 bg-white p-1 rounded-full shadow-md cursor-pointer">
                 <input
