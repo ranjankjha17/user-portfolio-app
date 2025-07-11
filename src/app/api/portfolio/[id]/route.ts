@@ -138,11 +138,10 @@ import Portfolio from '@/models/Portfolio';
 import dbConnect from '@/lib/dbConnect';
 import { getCurrentUser } from '@/lib/auth';
 
-interface Params {
-  params: { id: string };
-}
-
-export async function GET(req: NextRequest, { params }: Params) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     await dbConnect();
     const user = await getCurrentUser();
@@ -173,13 +172,16 @@ export async function GET(req: NextRequest, { params }: Params) {
   } catch (error: unknown) {
     const err = error as Error;
     return NextResponse.json(
-      { success: false, message: err.message || 'Something went wrong' },
+      { success: false, message: err.message || 'Internal server error' },
       { status: 500 }
     );
   }
 }
 
-export async function PUT(req: NextRequest, { params }: Params) {
+export async function PUT(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     await dbConnect();
     const user = await getCurrentUser();
@@ -220,13 +222,16 @@ export async function PUT(req: NextRequest, { params }: Params) {
   } catch (error: unknown) {
     const err = error as Error;
     return NextResponse.json(
-      { success: false, message: err.message || 'Something went wrong' },
+      { success: false, message: err.message || 'Internal server error' },
       { status: 500 }
     );
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: Params) {
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
   try {
     await dbConnect();
     const user = await getCurrentUser();
@@ -257,7 +262,7 @@ export async function DELETE(req: NextRequest, { params }: Params) {
   } catch (error: unknown) {
     const err = error as Error;
     return NextResponse.json(
-      { success: false, message: err.message || 'Something went wrong' },
+      { success: false, message: err.message || 'Internal server error' },
       { status: 500 }
     );
   }
