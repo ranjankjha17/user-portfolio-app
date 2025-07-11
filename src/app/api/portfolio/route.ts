@@ -32,7 +32,7 @@ export async function POST(request: Request) {
       { success: true, data: portfolioItem },
       { status: 201 }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }
@@ -58,7 +58,7 @@ export async function GET() {
       { success: true, data: portfolioItems },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }

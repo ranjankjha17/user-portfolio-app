@@ -30,7 +30,7 @@ export default function PortfolioList() {
         } else {
           setError(data.message || 'Failed to fetch portfolio items');
         }
-      } catch (err: any) {
+      } catch (err: unknown) {
         setError(err.message);
       } finally {
         setLoading(false);
@@ -56,7 +56,7 @@ export default function PortfolioList() {
         const data = await response.json();
         setError(data.message || 'Failed to delete portfolio item');
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError(err.message);
     }
   };

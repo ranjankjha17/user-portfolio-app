@@ -31,7 +31,7 @@ export async function GET(request: Request, { params }: { params: { id: string }
       { success: true, data: portfolioItem },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }
@@ -75,7 +75,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
       { success: true, data: portfolioItem },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }
@@ -111,7 +111,7 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
       { success: true, data: {} },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }

@@ -25,7 +25,7 @@
 //         if (!v) return true;
 //         return /^(https?:\/\/[^\s]+)|(\/[^\s]*)$/.test(v);
 //       },
-//       message: (props: any) => `${props.value} is not a valid image URL or path!`
+//       message: (props: unknown) => `${props.value} is not a valid image URL or path!`
 //     }
 //   },
 //   jobTitle: { type: String, required: false, default: '' },
@@ -40,7 +40,7 @@
 //     const salt = await bcrypt.genSalt(10);
 //     this.password = await bcrypt.hash(this.password, salt);
 //     next();
-//   } catch (err: any) {
+//   } catch (err: unknown) {
 //     next(err);
 //   }
 // });

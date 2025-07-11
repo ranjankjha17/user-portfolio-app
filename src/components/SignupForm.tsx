@@ -33,7 +33,7 @@ export default function SignupForm() {
       }
 
       router.push('/dashboard');
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError(err.message);
     } finally {
       setLoading(false);

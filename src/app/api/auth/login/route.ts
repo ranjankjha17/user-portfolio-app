@@ -41,7 +41,7 @@ export async function POST(request: Request) {
     setAuthCookie(token);
 
     return response;
-  } catch (error: any) {
+  } catch (error: unknown) {
     return NextResponse.json(
       { success: false, message: error.message },
       { status: 500 }

@@ -6,7 +6,7 @@ export async function GET() {
     const client = await clientPromise;
     await client.db().admin().ping();
     return NextResponse.json({ message: "MongoDB connected successfully" });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("MongoDB connection error:", error);
     return NextResponse.json(
       { message: "MongoDB connection failed", error: error.message },

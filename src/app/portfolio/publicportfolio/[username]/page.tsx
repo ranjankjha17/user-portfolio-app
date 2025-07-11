@@ -48,7 +48,7 @@ export default async function PublicPortfolioPage({
         </div>
 
         <div className="grid grid-cols-1 gap-8">
-          {portfolioItems.map((item: any) => (
+          {portfolioItems.map((item: unknown) => (
             <div
               key={item._id.toString()}
               className="bg-white rounded-lg shadow-md overflow-hidden"
