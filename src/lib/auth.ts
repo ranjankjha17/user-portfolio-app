@@ -15,6 +15,7 @@ export async function verifyToken(token: string): Promise<string | null> {
     const decoded = jwt.verify(token, JWT_SECRET) as { userId: string };
     return decoded.userId;
   } catch (error) {
+    console.log(error)
     return null;
   }
 }
